@@ -1,0 +1,89 @@
+Microservices Full Database Schema:
+
+User Service Database Schema:
+- User
+  - id (primary key)
+  - name
+  - email
+  - password
+
+Authentication Service Database Schema:
+- UserToken
+  - id (primary key)
+  - user_id (foreign key referencing User.id)
+  - token
+  - expiration_date
+
+Product Service Database Schema:
+- Product
+  - id (primary key)
+  - name
+  - price
+  - description
+
+Inventory Service Database Schema:
+- Inventory
+  - id (primary key)
+  - product_id (foreign key referencing Product.id)
+  - quantity
+
+Cart Service Database Schema:
+- Cart
+  - id (primary key)
+  - user_id (foreign key referencing User.id)
+  - product_id (foreign key referencing Product.id)
+  - quantity
+
+Order Service Database Schema:
+- Order
+  - id (primary key)
+  - user_id (foreign key referencing User.id)
+  - product_id (foreign key referencing Product.id)
+  - quantity
+  - total_amount
+  - status
+
+Payment Service Database Schema:
+- Payment
+  - id (primary key)
+  - order_id (foreign key referencing Order.id)
+  - user_id (foreign key referencing User.id)
+  - amount
+  - status
+
+Notification Service Database Schema:
+- Notification
+  - id (primary key)
+  - user_id (foreign key referencing User.id)
+  - message
+  - status
+
+API Gateway does not require its own database schema as it acts as a proxy for the microservices.
+
+Service Registry & Discovery Database Schema:
+- Service
+  - id (primary key)
+  - name
+  - endpoint
+  - status
+
+Logging and Monitoring Database Schema:
+- Log
+  - id (primary key)
+  - service
+  - log_level
+  - message
+  - timestamp
+
+Distributed Tracing Database Schema:
+- Trace
+  - id (primary key)
+  - trace_id
+  - span_id
+  - parent_span_id
+  - service
+  - operation
+  - duration
+  - timestamp
+
+Please note that this is a simplified representation of the database schema for the provided microservices. You may need to adapt and extend it based on your specific requirements and the data models of each microservice.
