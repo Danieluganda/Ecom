@@ -1,70 +1,62 @@
+
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
+	"fmt"
 	"os"
 	"os/signal"
 	"syscall"
+	"github.com/gorilla/mux"
+
+	/*
+	"github.com/your-package/user-service"
+	"github.com/x/oauth2/authentication-service"
+	"github.com/your-package/product-service"
+	"github.com/your-package/inventory-service"
+	"github.com/your-package/cart-service"
+	"github.com/your-package/order-service"
+	"github.com/your-package/payment-service"
+	"github.com/your-package/notification-service"
+	"github.com/your-package/api-gateway"
+	"github.com/your-package/service-discovery"
+	"github.com/your-package/logging"
+	"github.com/your-package/distributed-tracing"
+	*/
 )
 
 func main() {
-	// Create instances of all microservices
-	productService := NewProductService()
-	orderService := NewOrderService()
-	userService := NewUserService()
-	paymentService := NewPaymentService()
-	cartService := NewCartService()
-	recommendationService := NewRecommendationService()
-	shippingService := NewShippingService()
-	notificationService := NewNotificationService()
+	router := mux.NewRouter()
 
-	// Create a goroutine for each microservice to handle incoming requests
-	go productService.Start()
-	go orderService.Start()
-	go userService.Start()
-	go paymentService.Start()
-	go cartService.Start()
-	go recommendationService.Start()
-	go shippingService.Start()
-	go notificationService.Start()
+	// Initialize Services
+	userSvc := user.NewUserService()
+	authSvc := authentication.NewAuthenticationService()
+	productSvc := product.NewProductService()
+	inventorySvc := inventory.NewInventoryService()
+	cartSvc := cart.NewCartService()
+	orderSvc := order.NewOrderService()
+	paymentSvc := payment.NewPaymentService()
+	notificationSvc := notification.NewNotificationService()
 
-	// Set up HTTP endpoints to route requests to the appropriate microservice
-	http.HandleFunc("/products", productService.HandleRequest)
-	http.HandleFunc("/orders", orderService.HandleRequest)
-	http.HandleFunc("/users", userService.HandleRequest)
-	http.HandleFunc("/payments", paymentService.HandleRequest)
-	http.HandleFunc("/cart", cartService.HandleRequest)
-	http.HandleFunc("/recommendations", recommendationService.HandleRequest)
-	http.HandleFunc("/shipping", shippingService.HandleRequest)
-	http.HandleFunc("/notifications", notificationService.HandleRequest)
+	// Initialize Middleware
+	logger := logging.NewLoggerMiddleware()
+	tracer := tracing.NewTracingMiddleware()
 
-	// Start the HTTP server in a separate goroutine
-	go func() {
-		if err := http.ListenAndServe(":8080", nil); err != nil {
-			log.Fatal(err)
-		}
-	}()
+	// Initialize API Gateway
+	apiGateway := gateway.NewAPIGateway(router, logger, tracer)
 
-	fmt.Println("Microservices are running...")
+	// Register Service Endpoints
+	apiGateway.RegisterEndpoint("/users", http.MethodGet, userSvc.GetUsers)
+	apiGateway.RegisterEndpoint("/authenticate", http.MethodPost, authSvc.Authenticate)
+	apiGateway.RegisterEndpoint("/products", http.MethodGet, productSvc.GetProducts)
+	apiGateway.RegisterEndpoint("/inventory", http.MethodGet, inventorySvc.GetInventory)
+	apiGateway.RegisterEndpoint("/carts", http.MethodGet, cartSvc.GetCarts)
+	apiGateway.RegisterEndpoint("/orders", http.MethodGet, orderSvc.GetOrders)
+	apiGateway.RegisterEndpoint("/payments", http.MethodGet, paymentSvc.GetPayments)
+	apiGateway.RegisterEndpoint("/notifications", http.MethodGet, notificationSvc.GetNotifications)
 
-	// Gracefully handle termination signals to shut down all microservices
-	stop := make(chan os.Signal, 1)
-	signal.Notify(stop, syscall.SIGINT, syscall.SIGTERM)
-	<-stop
+	// Initialize Service Discovery
+	discovery := serviceDiscovery.NewServiceDiscovery()
 
-	fmt.Println("Shutting down all microservices...")
-
-	// Stop all microservices gracefully
-	productService.Stop()
-	orderService.Stop()
-	userService.Stop()
-	paymentService.Stop()
-	cartService.Stop()
-	recommendationService.Stop()
-	shippingService.Stop()
-	notificationService.Stop()
-
-	fmt.Println("Microservices have been stopped.")
-}
+	//xxx

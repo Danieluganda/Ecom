@@ -72,5 +72,4 @@ func main() {
 		log.Fatal(err)
 	}
 	fmt.Println("Carts table created")
-
-	c
+C
