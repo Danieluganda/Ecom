@@ -10,7 +10,7 @@ import (
 
 func main() {
 	// Open a connection to the database
-	db, err := sql.Open("mysql", "username:root(localhost:3306)/db_ecom")
+	db, err := sql.Open("mysql", "username:rootgo get -u github.com/go-sql-driver/mysql(localhost:3306)/db_ecom")
 	if err != nil {
 		log.Fatal(err)
 	}

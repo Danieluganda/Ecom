@@ -82,5 +82,5 @@ func (us *UserService) RetrieveUser(id int) (User, error) {
 		return user, err
 	}
 	defer stmt.Close()
-
-	// Execute the SQL statement
+	
+	// Execute the SQL statement.
