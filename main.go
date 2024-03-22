@@ -58,5 +58,3 @@ func main() {
 
 	// Initialize Service Discovery
 	discovery := serviceDiscovery.NewServiceDiscovery()
-
-	//xxx
