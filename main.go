@@ -10,20 +10,20 @@ import (
 	"syscall"
 	"github.com/gorilla/mux"
 
-	/*
-	"github.com/your-package/user-service"
-	"github.com/x/oauth2/authentication-service"
-	"github.com/your-package/product-service"
-	"github.com/your-package/inventory-service"
-	"github.com/your-package/cart-service"
-	"github.com/your-package/order-service"
-	"github.com/your-package/payment-service"
-	"github.com/your-package/notification-service"
-	"github.com/your-package/api-gateway"
-	"github.com/your-package/service-discovery"
-	"github.com/your-package/logging"
-	"github.com/your-package/distributed-tracing"
-	*/
+	
+	"github.com/Danieluganda/Ecom/user-service"
+	"github.com/Danieluganda/Ecom/authentication-service"
+	"github.com/Danieluganda/Ecom/roduct-service"
+	"github.com/Danieluganda/Ecom/nventory-service"
+	"github.com/Danieluganda/Ecom//cart-service"
+	"github.com/Danieluganda/Ecom/order-service"
+	"github.com/Danieluganda/Ecom/payment-service"
+	"github.com/Danieluganda/Ecom/notification-service"
+	"github.com/Danieluganda/Ecom/api-gateway"
+	"github.com/Danieluganda/Ecom/service-discovery"
+	"github.com/Danieluganda/Ecom/logging"
+	"github.com/Danieluganda/Ecom/distributed-tracing"
+	
 )
 
 func main() {
