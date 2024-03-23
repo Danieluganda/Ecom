@@ -13,9 +13,9 @@ import (
 	
 	"github.com/Danieluganda/Ecom/user-service"
 	"github.com/Danieluganda/Ecom/authentication-service"
-	"github.com/Danieluganda/Ecom/roduct-service"
-	"github.com/Danieluganda/Ecom/nventory-service"
-	"github.com/Danieluganda/Ecom//cart-service"
+	"github.com/Danieluganda/Ecom/product-service"
+	"github.com/Danieluganda/Ecom/inventory-service"
+	"github.com/Danieluganda/Ecom/Cart/cart-service"
 	"github.com/Danieluganda/Ecom/order-service"
 	"github.com/Danieluganda/Ecom/payment-service"
 	"github.com/Danieluganda/Ecom/notification-service"
