@@ -73,7 +73,7 @@ func main() {
 		sent_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 		is_delivered BOOLEAN;
 		delivery_type VARCHAR(255) NOT NULL
-		)`
+		)'
 		if err != nil {
 			log.Fatal(err)
 		}
